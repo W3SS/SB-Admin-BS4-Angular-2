@@ -8,10 +8,10 @@
         </a>
         
         <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('pages')">
+            <a class="list-group-item" (click)="addExpandClass('pages1')">
                 <span><i class="fa fa-briefcase"></i> &nbsp; Carteira</span>
             </a>
-            <li class="nested" [ngClass]="{'expand' : showMenu === 'pages' }">
+            <li class="nested" [ngClass]="{'expand' : showMenu === 'pages1' }">
                 <ul class="submenu">
                     <li>
                         <a [routerLink]="['form-empresa']" [routerLinkActive]="['router-link-active']" href><span>Empresa</span></a>
