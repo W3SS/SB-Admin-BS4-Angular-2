@@ -9,6 +9,8 @@ import { ChartModule } from './charts/chart.module';
 import { BlankPageModule } from './blank-page/blankPage.module';
 import { TableModule } from './tables/table.module';
 import { FormModule } from './forms/forms.module';
+import { FormEmpresaModule } from './form-empresa/form-empresa.module';
+
 import { GridModule } from './grid/grid.module';
 import { BSComponentModule } from './bs-component/bsComponent.module';
 import { BSElementModule } from './bs-element/bsElement.module';
@@ -17,7 +19,6 @@ import { DashboardComponent } from './dashboard.component';
 
 import {TopNavComponent} from '../shared/index';
 import {SidebarComponent} from '../shared/index';
-
 
 @NgModule({
     imports: [
@@ -29,6 +30,7 @@ import {SidebarComponent} from '../shared/index';
         ChartModule,
         TableModule,
         FormModule,
+        FormEmpresaModule,
         GridModule,
     	BSComponentModule,
         BSElementModule,

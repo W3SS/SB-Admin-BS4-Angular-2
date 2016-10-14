@@ -10,6 +10,5 @@ export const routes: Routes = [
 	...LoginRoutes,
 	...SignupRoutes,
 	...DashboardRoutes,
-//        { path: 'dashboard/home', component: DashboardRoutes },
 	{ path: '**', component: LoginComponent },
 ];

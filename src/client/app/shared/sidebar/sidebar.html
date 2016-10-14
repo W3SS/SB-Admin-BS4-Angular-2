@@ -6,6 +6,20 @@
         <a routerLink="/dashboard/home" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-dashboard"></i> Dashboard
         </a>
+        
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pages')">
+                <span><i class="fa fa-briefcase"></i> &nbsp; Carteira</span>
+            </a>
+            <li class="nested" [ngClass]="{'expand' : showMenu === 'pages' }">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['form-empresa']" [routerLinkActive]="['router-link-active']" href><span>Empresa</span></a>
+                    </li>                    
+                </ul>
+            </li>
+        </div>
+        
         <a [routerLink]="['chart']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-bar-chart-o"></i> Charts
         </a>
