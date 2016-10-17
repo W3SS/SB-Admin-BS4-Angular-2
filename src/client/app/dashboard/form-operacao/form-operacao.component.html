@@ -1,0 +1,98 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header">
+                Operação
+            </h2>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i>  <a href="Javascript:void(0)" routerLink="/dashboard/home">Dashboard</a>
+                </li>
+                <li class="active">
+                    <i class="fa fa-edit"></i> Operação
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+
+<form role="form">
+<!--(onSubmit)=gravarOperacao()-->
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="form-group">
+                <fieldset class="form-group">
+                    <label>Data:</label>
+                    <input type="date" class="form-control" id="data" name="data" [(ngModel)]="operacao.data" #data="ngModel">
+                </fieldset>
+            </div>             
+        </div> 
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label>Papel</label>
+                <select class="form-control" id="papel" name="papel"  [(ngModel)]="operacao.papel" #papel="ngModel">
+                    <option>HGTX3</option>
+                    <option>ABEV3</option>
+                    <option>PET4</option>
+                    <option>TAEE11</option>
+                    <option>ALPA4</option>
+                </select>
+            </div>             
+        </div> 
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label>Operação</label>
+                <select class="form-control" id="tipoOpeacao" name="tipoOpeacao" [(ngModel)]="operacao.tipoOpeacao" #tipoOpeacao="ngModel">
+                    <option>Comprar</option>
+                    <option>Vender</option>                    
+                </select>
+            </div>             
+        </div>    
+        <div class="col-lg-3">
+            <div class="form-group">
+                <fieldset class="form-group">
+                    <label>Valor:</label>
+                    <input type="text" class="form-control" placeholder="Valor" id="valor" name="valor" [(ngModel)]="operacao.valor" #valor="ngModel">
+                </fieldset>
+            </div>
+        </div>        
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="form-group">
+                <fieldset class="form-group">
+                    <label>Quantidade:</label>
+                    <input class="form-control" placeholder="Quantidade">
+                </fieldset>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-group">
+                <fieldset class="form-group">
+                    <label>Despesa:</label>
+                    <input class="form-control" placeholder="Despesa">
+                </fieldset>
+            </div>
+        </div>        
+        <div class="col-lg-6">
+            <div class="form-group">
+
+                <fieldset class="form-group">
+                    <label>Observação</label>
+                    <textarea class="form-control" rows="3"></textarea>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-group">
+                <button type="button" class="btn btn-secondary" (click)=gravarOperacao()>Gravar</button>
+                <button type="reset" class="btn btn-secondary">Limpar</button>
+            </div>
+        </div>
+    </div>
+</form>
+    <!-- /.row -->
+</div>

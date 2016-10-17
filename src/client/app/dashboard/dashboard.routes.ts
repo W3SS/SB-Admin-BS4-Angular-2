@@ -6,6 +6,7 @@ import { BlankPageRoutes } from './blank-page/index';
 import { TableRoutes } from './tables/index';
 import { FormRoutes } from './forms/index';
 import { FormEmpresaRoutes } from './form-empresa/index';
+import { FormOperacaoRoutes } from './form-operacao/index';
 import { GridRoutes } from './grid/index';
 import { BSComponentRoutes } from './bs-component/index';
 import { BSElementRoutes } from './bs-element/index';
@@ -26,6 +27,7 @@ export const DashboardRoutes: Route[] = [
             ...BlankPageRoutes,
             ...FormRoutes,
             ...FormEmpresaRoutes,
+            ...FormOperacaoRoutes,
             ...GridRoutes,
             ...BSElementRoutes,
             ...TabelaMagicaRoutes

@@ -11,6 +11,7 @@ import { TableModule } from './tables/table.module';
 import { FormModule } from './forms/forms.module';
 import { FormEmpresaModule } from './form-empresa/form-empresa.module';
 import { TabelaMagicaModule } from './tabela-magica/tabela-magica.module';
+import { FormOperacaoModule } from './form-operacao/form-operacao.module';
 
 import { GridModule } from './grid/grid.module';
 import { BSComponentModule } from './bs-component/bsComponent.module';
@@ -36,7 +37,8 @@ import {SidebarComponent} from '../shared/index';
     	BSComponentModule,
         BSElementModule,
         BlankPageModule,
-        TabelaMagicaModule
+        TabelaMagicaModule,
+        FormOperacaoModule
     ],
     declarations: [DashboardComponent, TopNavComponent, SidebarComponent],
     exports: [DashboardComponent, TopNavComponent, SidebarComponent]
