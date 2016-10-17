@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { TableComponent } from './table.component';
+import { TabelaMagicaComponent } from './tabela-magica.component';
 
 @NgModule({
-    imports: [RouterModule],
-    declarations: [TableComponent],
-    exports: [TableComponent]
+    imports: [BrowserModule, RouterModule],
+    declarations: [TabelaMagicaComponent],
+    exports: [TabelaMagicaComponent]
 })
 
-export class TableModule { }
+export class TabelaMagicaModule { }

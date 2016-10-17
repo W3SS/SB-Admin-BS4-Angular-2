@@ -10,6 +10,7 @@ import { BlankPageModule } from './blank-page/blankPage.module';
 import { TableModule } from './tables/table.module';
 import { FormModule } from './forms/forms.module';
 import { FormEmpresaModule } from './form-empresa/form-empresa.module';
+import { TabelaMagicaModule } from './tabela-magica/tabela-magica.module';
 
 import { GridModule } from './grid/grid.module';
 import { BSComponentModule } from './bs-component/bsComponent.module';
@@ -34,7 +35,8 @@ import {SidebarComponent} from '../shared/index';
         GridModule,
     	BSComponentModule,
         BSElementModule,
-        BlankPageModule
+        BlankPageModule,
+        TabelaMagicaModule
     ],
     declarations: [DashboardComponent, TopNavComponent, SidebarComponent],
     exports: [DashboardComponent, TopNavComponent, SidebarComponent]

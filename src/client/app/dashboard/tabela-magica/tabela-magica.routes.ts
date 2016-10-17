@@ -1,10 +1,10 @@
 import { Route } from '@angular/router';
 
-import { TableComponent } from './index';
+import { TabelaMagicaComponent } from './index';
 
-export const TableRoutes: Route[] = [
+export const TabelaMagicaRoutes: Route[] = [
 	{
-		path: 'tables',
-		component: TableComponent
+		path: 'tabela-magica-route',
+		component: TabelaMagicaComponent
 	},
 ];

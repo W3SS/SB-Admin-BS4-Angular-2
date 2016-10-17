@@ -9,8 +9,10 @@ import { FormEmpresaRoutes } from './form-empresa/index';
 import { GridRoutes } from './grid/index';
 import { BSComponentRoutes } from './bs-component/index';
 import { BSElementRoutes } from './bs-element/index';
+import { TabelaMagicaRoutes } from './tabela-magica/index';
 
 import { DashboardComponent } from './index';
+
 
 export const DashboardRoutes: Route[] = [
     {
@@ -25,7 +27,8 @@ export const DashboardRoutes: Route[] = [
             ...FormRoutes,
             ...FormEmpresaRoutes,
             ...GridRoutes,
-            ...BSElementRoutes
+            ...BSElementRoutes,
+            ...TabelaMagicaRoutes
             
         ]
     }

@@ -20,6 +20,10 @@
             </li>
         </div>
         
+        <a [routerLink]="['tabela-magica-route']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-table"></i> Tabela Mágica
+        </a>
+        
         <a [routerLink]="['chart']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-bar-chart-o"></i> Charts
         </a>
@@ -37,22 +41,7 @@
         </a>
         <a [routerLink]="['components']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-th-list"></i> &nbsp;Component
-        </a>
-        <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('pages')">
-                <span><i class="fa fa-plus"></i> &nbsp; Menu</span>
-            </a>
-            <li class="nested" [ngClass]="{'expand' : showMenu === 'pages' }">
-                <ul class="submenu">
-                    <li>
-                        <a href><span>Submenu</span></a>
-                    </li>
-                    <li>
-                        <a href><span>Submenu</span></a>
-                    </li>
-                </ul>
-            </li>
-        </div>
+        </a>        
         <a [routerLink]="['blankpage']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-file-o"></i> &nbsp;BlankPage
         </a>        
