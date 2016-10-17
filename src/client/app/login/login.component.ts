@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Usuario} from './usuario';
+
+
 /**
 *	This class represents the lazy loaded LoginComponent.
 */
@@ -12,6 +15,7 @@ import { Router } from '@angular/router';
 })
 
 export class LoginComponent {
+    usuario = new Usuario();
 
     constructor(
         private router: Router) {
@@ -22,4 +26,8 @@ export class LoginComponent {
         console.log("logando..." + link);
         this.router.navigate(link);
     }
+
+    get diagnostic() { 
+        return JSON.stringify(this.usuario); 
+    }  
 }

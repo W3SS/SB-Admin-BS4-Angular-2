@@ -5,7 +5,7 @@ export class Operacao {
 	valor: number;
 	quantidade: number;
 	despesa: number;
-	observacao: sring;
+	observacao: string;
 
 	Operacao.prototype.toString = function toString() {
 	  var out = 'Data: ' 	 		+ this.data + ';'
