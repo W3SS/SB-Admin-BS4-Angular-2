@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
+import { LoginService} from './login.service';
 import { Usuario} from './usuario';
 
 
@@ -11,20 +11,18 @@ import { Usuario} from './usuario';
 @Component({
     moduleId: module.id,
     selector: 'login-cmp',
-    templateUrl: 'login.component.html'
+    templateUrl: 'login.component.html',
+    providers: [LoginService]
 })
 
 export class LoginComponent {
     usuario = new Usuario();
 
-    constructor(
-        private router: Router) {
-    }
+    constructor(private loginSerice: LoginService) { }
 
-    login(): void {
-        let link = ['/dashboard/home'];
-        console.log("logando..." + link);
-        this.router.navigate(link);
+    login(event): void {        
+        event.preventDefault();     
+        this.loginSerice.login(this.usuario);        
     }
 
     get diagnostic() { 

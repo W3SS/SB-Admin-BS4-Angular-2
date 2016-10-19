@@ -22,6 +22,9 @@ import { DashboardComponent } from './dashboard.component';
 import {TopNavComponent} from '../shared/index';
 import {SidebarComponent} from '../shared/index';
 
+import { AUTH_PROVIDERS } from 'angular2-jwt';
+import { AuthGuard } from '../common/auth.guard';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -41,7 +44,8 @@ import {SidebarComponent} from '../shared/index';
         FormOperacaoModule
     ],
     declarations: [DashboardComponent, TopNavComponent, SidebarComponent],
-    exports: [DashboardComponent, TopNavComponent, SidebarComponent]
+    exports: [DashboardComponent, TopNavComponent, SidebarComponent],
+    providers : [AuthGuard,...AUTH_PROVIDERS]
 })
 
 export class DashboardModule { }

@@ -14,13 +14,16 @@ import { TabelaMagicaRoutes } from './tabela-magica/index';
 
 import { DashboardComponent } from './index';
 
+import { AuthGuard } from '../common/auth.guard';
+
 
 export const DashboardRoutes: Route[] = [
     {
         path: 'dashboard',
         component: DashboardComponent,
         children: [
-            ...HomeRoutes,
+            { path: 'home',   component: HomeRoutes, canActivate: [AuthGuard] },
+            //...HomeRoutes,
             ...ChartRoutes,
             ...BSComponentRoutes,
             ...TableRoutes,

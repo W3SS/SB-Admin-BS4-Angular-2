@@ -3,23 +3,27 @@
         <div class="col-lg-4 col-lg-offset-4">
             <img src="assets/img/SB-admin.png" width="150px" class="user-avatar" />
             <h1>Investimento</h1>
-            <form role="form" #loginForm="ngForm">
+            <form role="form" #loginForm="ngForm" (submit)="login($event)">
                 <div class="form-content">
                     <div class="form-group">
-                        <input type="text" class="form-control input-underline input-lg" id="email" name="email" [(ngModel)]="usuario.email" placeholder="Email" required #email="ngModel">
+                        <input type="text" class="form-control input-underline input-lg" id="username" name="email" [(ngModel)]="usuario.username" placeholder="username" required #username="ngModel">
                     </div>
-                    <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
-                        O email é obrigatório.
+                    <div [hidden]="username.valid || username.pristine" class="alert alert-danger">
+                        O Email é obrigatório.
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg" id="senha" name="senha" [(ngModel)]="usuario.senha" placeholder="Senha" required #senha="ngModel">
+                        <input type="password" class="form-control input-underline input-lg" id="password" name="password" [(ngModel)]="usuario.password" placeholder="password" required #password="ngModel">
                     </div>
-                    <div [hidden]="senha.valid || senha.pristine" class="alert alert-danger">
-                        A senha é obrigatório.
+                    <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+                        A Senha é obrigatório.
                     </div>
                 </div>
-                <a class="btn rounded-btn" (click)="login()"> Log in </a>
-                <!--routerLink="/dashboard/home" -->
+                <button type="submit" class="btn rounded-btn">Login</button>
+                <!--
+                <a class="btn rounded-btn"> Log in </a>
+                routerLink="/dashboard/home"
+                (click)="login()"
+                 -->
                 &nbsp;
                 <a type="submit" class="btn rounded-btn" routerLink="/signup">Register</a>
             </form>
