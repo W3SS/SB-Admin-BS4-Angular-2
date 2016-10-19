@@ -20,8 +20,8 @@ export class LoginService {
           .subscribe(
             response => {
               console.log("resposta "+response.json());
-              console.log("token: "+response.json().token);
-              localStorage.setItem('token', response.json().token);
+              console.log("id_token: "+response.json().token);
+              localStorage.setItem('id_token', response.json().token);
               this.router.navigate(['/dashboard/home']);
             },
             error => {
