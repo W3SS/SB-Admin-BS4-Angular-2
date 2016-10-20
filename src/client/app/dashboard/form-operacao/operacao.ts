@@ -2,7 +2,7 @@ export class Operacao {
 	data: Date;
 	papel: string;
 	tipoOpeacao: string;
-	valor: number;
+	precoUnitario: number;
 	quantidade: number;
 	despesa: number;
 	observacao: string;
