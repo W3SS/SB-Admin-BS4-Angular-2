@@ -9,8 +9,7 @@ import {Operacao} from './operacao';
 
 export class FormOperacaoComponent {
 	operacao: Operacao;
-	constructor () { 
-		console.log("Construtor");
+	constructor () { 		
 		this.operacao = new Operacao();		
 	}
 
