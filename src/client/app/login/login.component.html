@@ -1,6 +1,9 @@
 <div class="login-page">
     <div class="row">
         <div class="col-lg-4 col-lg-offset-4">
+            <div [hidden]="msgErro == null" class="alert alert-danger">
+                        {{msgErro}}.
+            </div>
             <img src="assets/img/SB-admin.png" width="150px" class="user-avatar" />
             <h1>Investimento</h1>
             <form role="form" #loginForm="ngForm" (submit)="login($event)">

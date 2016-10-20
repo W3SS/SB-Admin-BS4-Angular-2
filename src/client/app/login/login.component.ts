@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { LoginService} from './login.service';
 import { Usuario} from './usuario';
@@ -17,12 +18,24 @@ import { Usuario} from './usuario';
 
 export class LoginComponent {
     usuario = new Usuario();
+    msgErro: string;
 
-    constructor(private loginSerice: LoginService) { }
+    constructor(private loginSerice: LoginService, private router: Router) { }
 
     login(event): void {        
-        event.preventDefault();     
-        this.loginSerice.login(this.usuario);        
+        event.preventDefault();            
+
+         // Get all comments
+         this.loginSerice.login(this.usuario)
+                           .subscribe(
+                               result => { 
+                                   localStorage.setItem('id_token', result.token);
+                                   this.router.navigate(['/dashboard/home']);                        
+                               },
+                                err => {
+                                    // Log errors if any                                    
+                                    this.msgErro = err;
+                            });
     }
 
     get diagnostic() { 

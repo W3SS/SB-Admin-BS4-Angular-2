@@ -7,9 +7,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 export class AuthGuard implements CanActivate {
   constructor(private router: Router) {}
 
-  canActivate() {
-  	console.log('estou no authGuard');
-  	console.log(tokenNotExpired());
+  canActivate() {  	
     if (tokenNotExpired()) {    	
       return true;
     }
