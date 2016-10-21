@@ -4,6 +4,8 @@ import {FormOperacaoervice} from './form-operacao.service';
 import {Papel} from '../../shared/entity/papel';
 import {Operacao} from '../../shared/entity/operacao';
 
+import {AlertaUtil} from '../../shared/utils/alerta-util';
+
 @Component({
 	moduleId: module.id,
     selector: 'form-operacao',
@@ -18,10 +20,13 @@ export class FormOperacaoComponent implements OnInit {
 
     papeis: Papel[];
 	operacao: Operacao;	
+
+	alertaUtil: AlertaUtil;
 	
 
 	constructor (private formOperacaoervice: FormOperacaoervice) { 		
 		this.operacao = new Operacao();		
+		this.alertaUtil = new AlertaUtil();
 	}
 
 	ngOnInit(): void {            
@@ -37,7 +42,8 @@ export class FormOperacaoComponent implements OnInit {
                     }
                     ,
                     error => {
-                        console.log(error)
+                        // console.log(error)
+                        this.alertaUtil.addMessage('danger', error);
                     } 
                 );
     }        

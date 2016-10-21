@@ -24,7 +24,7 @@ export class LoginComponent {
 
     login(event): void {        
         event.preventDefault();            
-
+/*
          // Get all comments
          this.loginSerice.login(this.usuario)
                            .subscribe(
@@ -35,7 +35,9 @@ export class LoginComponent {
                                 err => {
                                     // Log errors if any                                    
                                     this.msgErro = err;
-                            });
+                            });*/
+        // DESENVOLVER SEM O SERVIDOR
+        this.router.navigate(['/dashboard/home']);                        
     }
 
     get diagnostic() { 

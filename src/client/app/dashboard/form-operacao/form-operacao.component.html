@@ -1,9 +1,12 @@
-<div [hidden]="msgError == null" class="alert alert-danger">
+<!-- <div [hidden]="msgError == null" class="alert alert-danger">
     {{msgError}}
 </div>
 <div [hidden]="msgSuccess == null" class="alert alert-success">
     {{msgSuccess}}
-</div>
+</div> -->
+<alert *ngFor="let alert of alertaUtil.alerts; let i = index" [type]="alert.type" dismissible="true" (close)="alertaUtil.closeAlert(i)">
+        {{ alert?.msg }}
+</alert>
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="row">
