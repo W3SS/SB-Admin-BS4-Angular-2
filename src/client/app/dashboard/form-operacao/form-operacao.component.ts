@@ -1,6 +1,8 @@
-import {Component} from '@angular/core';
-import {Operacao} from './operacao';
+import {Component, OnInit} from '@angular/core';
+
 import {FormOperacaoervice} from './form-operacao.service';
+import {Papel} from '../../shared/entity/papel';
+import {Operacao} from '../../shared/entity/operacao';
 
 @Component({
 	moduleId: module.id,
@@ -9,25 +11,51 @@ import {FormOperacaoervice} from './form-operacao.service';
     providers: [FormOperacaoervice]
 })
 
-export class FormOperacaoComponent {
-	operacao: Operacao;
-	msg: string;
+export class FormOperacaoComponent implements OnInit {
+
+	msgError: string;
+	msgSuccess: string;
+
+    papeis: Papel[];
+	operacao: Operacao;	
+	
 
 	constructor (private formOperacaoervice: FormOperacaoervice) { 		
 		this.operacao = new Operacao();		
 	}
 
-	gravarOperacao(): void{
-		this.msg = null;
-		console.log("gravarOperacao "+this.operacao.toString());
+	ngOnInit(): void {            
+        this.getAllPapel();
+    }
+
+	getAllPapel(): void {
+        this.formOperacaoervice.getAllPapel()
+                .subscribe( 
+                    data => {
+                    		this.papeis = data;
+                            console.log("Sucesso getAllPapel().")
+                    }
+                    ,
+                    error => {
+                        console.log(error)
+                    } 
+                );
+    }        
+
+	gravarOperacao(event): void{
+		event.preventDefault(); 
+		
+		this.msgSuccess = null;		
+		this.msgError = null;				
 	    this.formOperacaoervice.salvar(this.operacao)
 	               .subscribe(
-	                   result => { 
-	                       this.msg = result;
+	                   result => { 	                   		
+	                       this.msgSuccess = result.message;
 	                   },
 	                    err => {
 	                        // Log errors if any                                    
-	                        this.msg = err;
+	                        
+	                        this.msgError = err.message;
 	                });
 	}
 }

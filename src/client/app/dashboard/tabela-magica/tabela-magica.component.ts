@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TabelaMagicaService } from './tabela-magica.service';
-import { TabelaMagica} from './tabela-magica';
+import { TabelaMagica} from '../../shared/entity/tabela-magica';
 
 @Component({
     moduleId: module.id,

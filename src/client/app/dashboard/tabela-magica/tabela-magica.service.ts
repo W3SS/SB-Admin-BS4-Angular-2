@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
-import { TabelaMagica } from './tabela-magica';
+import { TabelaMagica } from '../../shared/entity/tabela-magica';
 // import { contentHeaders } from '../../common/headers';
 
 import { Observable } from 'rxjs/Rx';

@@ -1,12 +1,3 @@
-export class TabelaMagica {
-    id: number;
-    nome: string;
-    papel: string;
-    setor: number;
-    rank: number;
-    fundamento: Fundamento;
-}
-
 export class Fundamento {
 
     id: number;
