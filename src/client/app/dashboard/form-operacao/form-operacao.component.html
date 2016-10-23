@@ -1,11 +1,5 @@
-<!-- <div [hidden]="msgError == null" class="alert alert-danger">
-    {{msgError}}
-</div>
-<div [hidden]="msgSuccess == null" class="alert alert-success">
-    {{msgSuccess}}
-</div> -->
 <alert *ngFor="let alert of alertaUtil.alerts; let i = index" [type]="alert.type" dismissible="true" (close)="alertaUtil.closeAlert(i)">
-        {{ alert?.msg }}
+    {{ alert?.msg }}
 </alert>
 <div class="container-fluid">
     <!-- Page Heading -->
@@ -26,92 +20,154 @@
     </div>
     <!-- /.row -->
     <form role="form" #OperacaoForm="ngForm" (submit)="gravarOperacao($event)">
-        <!--(onSubmit)=gravarOperacao()-->
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="form-group">
-                    <fieldset class="form-group">
-                        <label>Data:</label>
-                        <input type="date" class="form-control" id="data" name="data" [(ngModel)]="operacao.data" #data="ngModel" required>
-                    </fieldset>
-                    <div [hidden]="data.valid || data.pristine" class="alert alert-danger">
-                        A data é obrigatório.
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="form-group">
-                    <label>Papel</label>
-                    <!-- <select class="form-control" id="papelTexto" name="papelTexto" [(ngModel)]="papel" #papelTexto="ngModel">
-                        <option *ngFor="let papel of papeis" [value]="papel">{{papel.papel}}</option>
-                    </select> -->
-                    <select class="form-control" id="papelTexto" name="papelTexto" [(ngModel)]="operacao.papel" #papelTexto="ngModel" required>
-                        <option *ngFor="let p of papeis" [ngValue]="p">{{p.papel}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="form-group">
-                    <label>Operação</label>
-                    <select class="form-control" id="tipoOpeacao" name="tipoOpeacao" [(ngModel)]="operacao.tipoOpeacao" #tipoOpeacao="ngModel" required>
-                        <option>Comprar</option>
-                        <option>Vender</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="form-group">
-                    <fieldset class="form-group">
-                        <label>Preço Unitário:</label>
-                        <input type="text" class="form-control" placeholder="precoUnitario" id="precoUnitario" name="precoUnitario" [(ngModel)]="operacao.precoUnitario" required #precoUnitario="ngModel" >
-                    </fieldset>
-                    <div [hidden]="precoUnitario.valid || precoUnitario.pristine" class="alert alert-danger">
-                        O preço unitário é obrigatório.
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="form-group">
-                    <fieldset class="form-group">
-                        <label>Quantidade:</label>
-                        <input class="form-control" placeholder="Quantidade" id="quantidade" name="quantidade" [(ngModel)]="operacao.quantidade" #quantidade="ngModel" required>
-                    </fieldset>
-                    <div [hidden]="quantidade.valid || quantidade.pristine" class="alert alert-danger">
-                        A quantidade é obrigatório.
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="form-group">
-                    <fieldset class="form-group">
-                        <label>Despesa:</label>
-                        <input class="form-control" placeholder="Despesa" id="despessa" name="despessa" [(ngModel)]="operacao.despessa" #despessa="ngModel" required>
-                    </fieldset>
-                     <div [hidden]="despessa.valid || despessa.pristine" class="alert alert-danger">
-                        A despesa é obrigatório.
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <fieldset class="form-group">
-                        <label>Observação</label>
-                        <textarea class="form-control" rows="3" id="observacao" name="observacao" [(ngModel)]="operacao.observacao" #observacao="ngModel" required></textarea>
-                    </fieldset>
-                    <div [hidden]="observacao.valid || observacao.pristine" class="alert alert-danger">
-                       Observação é obrigatório.
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="form-group">
-                    <button type="submit" class="btn btn-secondary">Gravar</button>
-                    <button type="reset" class="btn btn-secondary">Limpar</button>
-                </div>
+        <div class="col-lg-12">
+            <div class="card card-block">
+                <tabset>
+                    <tab heading="Cadastro">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label>Data:</label>
+                                        <input type="date" class="form-control" id="data" name="data" [(ngModel)]="operacao.data" #data="ngModel" required>
+                                    </fieldset>
+                                    <div [hidden]="data.valid || data.pristine" class="alert alert-danger">
+                                        A data é obrigatório.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>Papel</label>
+                                    <select class="form-control" id="papelTexto" name="papelTexto" [(ngModel)]="operacao.papel" #papelTexto="ngModel" required>
+                                        <option *ngFor="let p of papeis" [ngValue]="p">{{p.papel}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>Operação</label>
+                                    <select class="form-control" id="tipoOperacao" name="tipoOperacao" [(ngModel)]="operacao.tipoOperacao" #tipoOperacao="ngModel" required>
+                                        <option value="C">Comprar</option>
+                                        <option value="V">Vender</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label>Preço Unitário:</label>
+                                        <input type="text" class="form-control" placeholder="precoUnitario" id="precoUnitario" name="precoUnitario" [(ngModel)]="operacao.precoUnitario" required #precoUnitario="ngModel">
+                                    </fieldset>
+                                    <div [hidden]="precoUnitario.valid || precoUnitario.pristine" class="alert alert-danger">
+                                        O preço unitário é obrigatório.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label>Quantidade:</label>
+                                        <input class="form-control" placeholder="Quantidade" id="quantidade" name="quantidade" [(ngModel)]="operacao.quantidade" #quantidade="ngModel" required>
+                                    </fieldset>
+                                    <div [hidden]="quantidade.valid || quantidade.pristine" class="alert alert-danger">
+                                        A quantidade é obrigatório.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label>Despesa:</label>
+                                        <input class="form-control" placeholder="Despesa" id="despesa" name="despesa" [(ngModel)]="operacao.despesa" #despesa="ngModel" required>
+                                    </fieldset>
+                                    <div [hidden]="despesa.valid || despesa.pristine" class="alert alert-danger">
+                                        A despesa é obrigatório.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label>Observação</label>
+                                        <textarea class="form-control" rows="3" id="observacao" name="observacao" [(ngModel)]="operacao.observacao" #observacao="ngModel" required></textarea>
+                                    </fieldset>
+                                    <div [hidden]="observacao.valid || observacao.pristine" class="alert alert-danger">
+                                        Observação é obrigatório.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-secondary">Gravar</button>
+                                    <button type="reset" class="btn btn-secondary">Limpar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab heading="Tabela">
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12">
+                                <div class="card card-block">
+                                    <div class="table-responsive">
+                                        <table class="table table-inverse">
+                                            <thead>
+                                                <tr>
+                                                    <th>Data</th>
+                                                    <th>Empresa</th>
+                                                    <th>Papel</th>
+                                                    <th>Tipo de Operação</th>
+                                                    <th>Quantidade</th>
+                                                    <th>Despesa</th>
+                                                    <th>Observação</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let operacao of operacoes">
+                                                    <td>{{operacao.data | date: 'dd/MM/yyyy'}}</td>
+                                                    <td>{{operacao.papel.nome}}</td>
+                                                    <td>{{operacao.papel.papel}}</td>
+                                                    <td>{{operacao.tipoOperacao}}</td>
+                                                    <td>{{operacao.quantidade}}</td>
+                                                    <td>{{operacao.despesa}}</td>
+                                                    <td>{{operacao.observacao}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card card-block">
+                                    <h4 class="card-title">Modal</h4>
+                                    <!-- Large modal -->
+                                    <button class="btn btn-primary" (click)="lgModal.show()">Large modal</button>
+                                    <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title">Large modal</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque beatae accusantium maiores, placeat, quasi laborum in vitae accusamus veritatis inventore nulla et quibusdam debitis ipsam consectetur eum, velit ea praesentium! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum nostrum a velit esse est, voluptatum quam eos ipsum laudantium facere iusto. Provident deleniti non temporibus ex tenetur, assumenda labore eos!
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
             </div>
         </div>
     </form>

@@ -2,7 +2,7 @@ import {Papel} from './papel';
 
 export class Operacao {
 	data: Date;	
-	tipoOpeacao: string;
+	tipoOperacao: string;
 	precoUnitario: number;
 	quantidade: number;
 	despesa: number;

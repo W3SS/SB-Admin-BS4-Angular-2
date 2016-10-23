@@ -11,6 +11,7 @@ import {Operacao} from '../../shared/entity/operacao';
 export class FormOperacaoervice {
     private _urlSalvarOperacao = 'http://localhost:8080/investimentoRestFul/salvarOperacao';  // URL to web api
     private _urlGetAllPapel = 'http://localhost:8080/investimentoRestFul/getAllPapel';    
+    private _urlGetAllOperacaoEntrada = 'http://localhost:8080/investimentoRestFul/getAllOperacaoEntrada';    
     
     constructor(private http: Http) { }
 
@@ -32,12 +33,22 @@ export class FormOperacaoervice {
                        .catch((error:any) => Observable.throw(error.json()));
      }   
 
-
     public getAllPapel(): Observable<any>{
         let contentHeaders = new Headers();
         this.createAuthorizationHeader(contentHeaders);   
 
         return this.http.get(this._urlGetAllPapel, { headers: contentHeaders })
+                    // ...sucesso
+                    .map((response: Response) => response.json())
+                    //...errors if any
+                    .catch((error:any) => Observable.throw(error.text()));
+     }     
+
+    public getAllOperacaoEntrada(): Observable<any>{
+        let contentHeaders = new Headers();
+        this.createAuthorizationHeader(contentHeaders);   
+
+        return this.http.get(this._urlGetAllOperacaoEntrada, { headers: contentHeaders })
                     // ...sucesso
                     .map((response: Response) => response.json())
                     //...errors if any

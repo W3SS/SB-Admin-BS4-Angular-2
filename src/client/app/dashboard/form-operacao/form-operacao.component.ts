@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {FormOperacaoervice} from './form-operacao.service';
 import {Papel} from '../../shared/entity/papel';
 import {Operacao} from '../../shared/entity/operacao';
 
 import {AlertaUtil} from '../../shared/utils/alerta-util';
+import { ModalDirective } from 'ng2-bootstrap/components/modal/modal.component';
 
 @Component({
 	moduleId: module.id,
@@ -15,22 +16,26 @@ import {AlertaUtil} from '../../shared/utils/alerta-util';
 
 export class FormOperacaoComponent implements OnInit {
 
-	msgError: string;
-	msgSuccess: string;
-
+	/*Variaveis*/
     papeis: Papel[];
 	operacao: Operacao;	
 
 	alertaUtil: AlertaUtil;
-	
 
+	operacoes: Operacao[];
+
+	@ViewChild('childModal') public childModal:ModalDirective;
+	
+	/*Construtor*/
 	constructor (private formOperacaoervice: FormOperacaoervice) { 		
 		this.operacao = new Operacao();		
 		this.alertaUtil = new AlertaUtil();
 	}
 
+	/*Métodos*/
 	ngOnInit(): void {            
         this.getAllPapel();
+        this.getAllOperacaoEntrada();
     }
 
 	getAllPapel(): void {
@@ -42,8 +47,14 @@ export class FormOperacaoComponent implements OnInit {
                     }
                     ,
                     error => {
-                        // console.log(error)
-                        this.alertaUtil.addMessage('danger', error);
+                        this.alertaUtil.addMessage(
+                        		{
+							     	type: 'danger',
+							     	closable: true,
+							     	msg: error
+								}
+                        	)
+                        ;
                     } 
                 );
     }        
@@ -51,17 +62,47 @@ export class FormOperacaoComponent implements OnInit {
 	gravarOperacao(event): void{
 		event.preventDefault(); 
 		
-		this.msgSuccess = null;		
-		this.msgError = null;				
 	    this.formOperacaoervice.salvar(this.operacao)
 	               .subscribe(
 	                   result => { 	                   		
-	                       this.msgSuccess = result.message;
+	                       this.getAllOperacaoEntrada();
+	                       this.alertaUtil.addMessage(
+                        		{
+							     	type: 'success',
+							     	closable: true,
+							     	msg: result.message
+								}
+                        	);
 	                   },
 	                    err => {
 	                        // Log errors if any                                    
-	                        
-	                        this.msgError = err.message;
+	                        this.alertaUtil.addMessage(
+                        		{
+							     	type: 'danger',
+							     	closable: true,
+							     	msg: err.message
+								}
+                        	);
 	                });
 	}
+
+	getAllOperacaoEntrada(): void {
+        this.formOperacaoervice.getAllOperacaoEntrada()
+                .subscribe( 
+                    data => {
+                    		this.operacoes = data;
+                            console.log("Sucesso getAllOperacaoEntrada().");
+                    }
+                    ,
+                    error => {
+                        this.alertaUtil.addMessage(
+                        		{
+							     	type: 'danger',
+							     	closable: true,
+							     	msg: error
+								}
+                        	);
+                    } 
+                );
+    }        
 }
