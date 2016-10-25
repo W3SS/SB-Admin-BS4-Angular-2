@@ -91,6 +91,18 @@ export class FormOperacaoComponent implements OnInit {
                 .subscribe( 
                     data => {
                     		this.operacoes = data;
+                    		for (var i = this.operacoes.length - 1; i >= 0; i++) {
+
+                    			console.log(this.operacoes[i].quantidade);
+                    			console.log(this.operacoes[i].precoUnitario);
+                    			console.log(this.operacoes[i].quantidade * this.operacoes[i].precoUnitario);
+                    			
+                    			if(this.operacoes[i].quantidade != undefined && this.operacoes[i].precoUnitario != undefined){
+                    				this.operacoes[i].totalOperacao = this.operacoes[i].quantidade * this.operacoes[i].precoUnitario;
+
+                    			}
+                    			
+                    		}
                             console.log("Sucesso getAllOperacaoEntrada().");
                     }
                     ,
