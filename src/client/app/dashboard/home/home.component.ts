@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild } from '@angular/core';
+import {OPERACOES} from '../../shared/entity/operacoesMock';
+import {Papel} from '../../shared/entity/papel';
+import {Operacao} from '../../shared/entity/operacao';
+import { ModalDirective } from 'ng2-bootstrap/components/modal/modal.component';
+
 
 /**
 *	This class represents the lazy loaded HomeComponent.
@@ -66,6 +71,7 @@ export class HomeComponent {
 		for (let i = 0; i < 4; i++) {
 			this.addSlide();
 		}
+		this.calcularCamposOperacao();
 	}
 
 	/* Carousel */
@@ -78,4 +84,31 @@ export class HomeComponent {
 		});
 	}
 	/* END */
+
+	// tabela de operações
+	operacoes = OPERACOES;
+	operacaoModal: Operacao;	
+	@ViewChild('modalOperacao') public modalOperacao:ModalDirective;
+
+	calcularCamposOperacao(): void{
+    	for (var i = 0; i < this.operacoes.length; i++) {						
+			this.operacoes[i].totalOperacao = (this.operacoes[i].quantidade * this.operacoes[i].precoUnitario) + this.operacoes[i].despesa;	
+		}
+    }
+
+     showModalOperacao(operacao): void{
+    	this.operacaoModal = new Operacao();
+    	this.operacaoModal.papel = operacao.papel;
+    	this.operacaoModal.quantidade = operacao.quantidade;
+    	if ("Comprar" == operacao.tipoOperacao) {
+    		this.operacaoModal.tipoOperacao = "Vender"
+    	} else {
+			this.operacaoModal.tipoOperacao = "Comprar"
+    	}
+    	this.modalOperacao.show();
+    }
+    // final
+
+// Botão ação
+    public status:{isopen:boolean} = {isopen: false};
 }

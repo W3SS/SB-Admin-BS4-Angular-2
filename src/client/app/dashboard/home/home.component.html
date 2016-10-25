@@ -1,22 +1,7 @@
 <div class="container-fluid">
-    <h2 class="text-muted">Dashboard <small>Statistics Overview</small></h2>
-    <div class="row">
-        <div class="col-md-12">
-            <carousel [interval]="myInterval" [noWrap]="noWrapSlides">
-                <slide *ngFor="let slidez of slides;let index=index" [active]="slidez.active">
-                    <img [src]="slidez.image">
-                    <div class="carousel-caption">
-                        <h4>Slide {{index}}</h4>
-                        <p>{{slidez.text}}</p>
-                    </div>
-                </slide>
-                <i class="fa fa-chevron-left left carousel-control"></i>
-                <i class="fa fa-chevron-right right carousel-control"></i>
-            </carousel>
-        </div>
-    </div>
-    <hr>
-    <div class="row">
+    <h2 class="text-muted">Dashboard <small>Investimentos</small></h2>
+<hr>
+<div class="row">
         <div class="col-xl-3 col-lg-6">
             <div class="card card-primary card-inverse">
                 <div class="card-header card-primary">
@@ -106,22 +91,60 @@
             </div>
         </div>
     </div>
-    <alert *ngFor="let alert of alerts; let i = index" [type]="alert.type" dismissible="true" (close)="closeAlert(i)">
-        {{ alert?.msg }}
-    </alert>
+
     <div class="row">
-        <div class="col-lg-8">
-        <div class="card card-default">
-        <div class="card-header">
-                    <i class="fa fa-clock-o fa-fw"></i> Responsive Timeline
+        <div class="col-xl-12 col-lg-12">
+            <div class="card card-block">
+  <!-- <div class="col-xl-11"></div> -->
+  <div class="col-xl-1" (click)="$event.preventDefault()">
+  <!-- Single button -->
+  <div class="btn-group" dropdown [(isOpen)]="status.isopen">
+    <button id="single-button" type="button" class="btn btn-primary" dropdownToggle>
+      Ações <span class="caret"></span>
+    </button>
+    <ul dropdownMenu role="menu" aria-labelledby="single-button">
+      <li role="menuitem"><a class="dropdown-item" href="#">Atualizar Cotação</a></li>
+      <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+      <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+      <li class="divider dropdown-divider"></li>
+      <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+    </ul>
+  </div>
+  </div>
+                <div class="table-responsive">
+                 
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Papel</th>
+                                <th>Tipo de Operação</th>
+                                <th>Preço Unitário</th>
+                                <th>Quantidade</th>
+                                <th>Despesa</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let operacao of operacoes" (dblclick)="showModalOperacao(operacao)">
+                                <td>{{operacao.data | date: 'dd/MM/yyyy'}}</td>
+                                <td>{{operacao.papel.papel}}</td>
+                                <td>{{operacao.tipoOperacao}}</td>
+                                <td>{{operacao.precoUnitario | currency:'BRL':true}}</td>
+                                <td>{{operacao.quantidade}}</td>
+                                <td>{{operacao.despesa | currency:'BRL':true}}</td>
+                                <td>{{operacao.totalOperacao | currency:'BRL':true}}</td>
+                                <!-- <td>{{operacao.observacao}}</td> -->
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <!-- /.card-header -->
-                <timeline-cmp></timeline-cmp>
-                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
-        </div>
-        <!-- /.col-lg-8 -->
+        </div>    
+    </div>    
+    <hr>    
+    
+    <div class="row">        
         <div class="col-lg-4">
         <div class="card card-default">
         <div class="card-header">
@@ -132,11 +155,107 @@
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
-
-            <chat-cmp></chat-cmp>
-            <!-- /.card .chat-card -->
         </div>
         <!-- /.col-lg-4 -->
     </div>
 
+</div>
+
+
+
+
+<!-- Modal para apresentar informções da operação -->
+<div bsModal #modalOperacao="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" *ngIf="operacaoModal">
+        <form role="form" #OperacaoFormModal="ngForm" (submit)="gravarOperacaoSaida($event)">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="modalOperacao.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>                
+                    <h5 class="modal-title">Operação Saída do Papel: <small>{{operacaoModal.papel.papel}}</small></h5>
+            </div>
+            <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label>Data:</label>
+                                        <input type="date" class="form-control" id="data" name="data" [(ngModel)]="operacaoModal.data" #data="ngModel" required>
+                                    </fieldset>
+                                    <div [hidden]="data.valid || data.pristine" class="alert alert-danger">
+                                        A data é obrigatório.
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>Operação</label>                                    
+                                    <input type="text" class="form-control" id="tipoOperacao" name="tipoOperacao" [(ngModel)]="operacaoModal.tipoOperacao" #tipoOperacao="ngModel" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label>Preço Unitário:</label>
+                                        <input type="text" class="form-control" placeholder="Preço Unitário" id="precoUnitario" name="precoUnitario" [(ngModel)]="operacaoModal.precoUnitario" required #precoUnitario="ngModel">
+                                    </fieldset>
+                                    <div [hidden]="precoUnitario.valid || precoUnitario.pristine" class="alert alert-danger">
+                                        O preço unitário é obrigatório.
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label>Quantidade:</label>
+                                        <input class="form-control" placeholder="Quantidade" id="quantidade" name="quantidade" [(ngModel)]="operacaoModal.quantidade" #quantidade="ngModel" required>
+                                    </fieldset>
+                                    <div [hidden]="quantidade.valid || quantidade.pristine" class="alert alert-danger">
+                                        A quantidade é obrigatório.
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label>Despesa:</label>
+                                        <input class="form-control" placeholder="Despesa" id="despesa" name="despesa" [(ngModel)]="operacaoModal.despesa" #despesa="ngModel" required>
+                                    </fieldset>
+                                    <div [hidden]="despesa.valid || despesa.pristine" class="alert alert-danger">
+                                        A despesa é obrigatório.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label>Observação</label>
+                                        <textarea class="form-control" rows="3" id="observacao" name="observacao" [(ngModel)]="operacaoModal.observacao" #observacao="ngModel" required></textarea>
+                                    </fieldset>
+                                    <div [hidden]="observacao.valid || observacao.pristine" class="alert alert-danger">
+                                        Observação é obrigatório.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="modal-footer">
+                            <div class="row">                            
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Gravar</button>
+                                        <button type="button" class="btn btn-warning" (click)="modalOperacao.hide()">Fechar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+            </form>
+        </div>
+         
+    </div>
 </div>
