@@ -19,11 +19,11 @@
         </div>
     </div>
     <!-- /.row -->
-    <form role="form" #OperacaoForm="ngForm" (submit)="gravarOperacao($event)">
+    <form role="form" #OperacaoForm="ngForm" (submit)="gravarOperacaoEntrada($event)">
         <div class="col-lg-12">
             <div class="card card-block">
                 <tabset>
-                    <tab heading="Cadastro">
+                    <tab heading="Cadastrar">
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="form-group">
@@ -48,8 +48,8 @@
                                 <div class="form-group">
                                     <label>Operação</label>
                                     <select class="form-control" id="tipoOperacao" name="tipoOperacao" [(ngModel)]="operacao.tipoOperacao" #tipoOperacao="ngModel" required>
-                                        <option value="C">Comprar</option>
-                                        <option value="V">Vender</option>
+                                        <option value="Comprar">Comprar</option>
+                                        <option value="Vender">Vender</option>
                                     </select>
                                 </div>
                             </div>
@@ -103,39 +103,44 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-secondary">Gravar</button>
-                                    <button type="reset" class="btn btn-secondary">Limpar</button>
+                                    <button type="submit" class="btn btn-primary">Gravar</button>
+                                    <button type="reset" class="btn btn-danger">Limpar</button>
                                 </div>
                             </div>
                         </div>
                     </tab>
-                    <tab heading="Tabela">
+                    <tab heading="Operações Abertas">
                         <div class="row">
                             <div class="col-xl-12 col-lg-12">
                                 <div class="card card-block">
                                     <div class="table-responsive">
-                                        <table class="table table-hover table-striped">
+                                        <table class="table table-hover">
                                             <thead>
                                                 <tr>
+                                                    <th>Ações</th>
                                                     <th>Data</th>
-                                                    <!-- <th>Empresa</th> -->
                                                     <th>Papel</th>
                                                     <th>Tipo de Operação</th>
+                                                    <th>Preço Unitário</th>
                                                     <th>Quantidade</th>
                                                     <th>Despesa</th>
                                                     <th>Total</th>
-                                                    <!-- <th>Observação</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr *ngFor="let operacao of operacoes" (click)="lgModal.show()">
+                                                <tr *ngFor="let operacao of operacoes" (dblclick)="showModalOperacao(operacao)">
+                                                    <td>
+                                                        <i class="fa fa-sign-out" aria-hidden="true" title="Operação de saída" 
+                                                        style="cursor:pointer" (click)="showModalOperacao(operacao)"></i>
+                                                        <i class="fa fa-calculator" aria-hidden="true" title="Analisar Cotação" style="cursor:pointer"></i>
+                                                    </td>
                                                     <td>{{operacao.data | date: 'dd/MM/yyyy'}}</td>
-                                                    <!-- <td>{{operacao.papel.nome}}</td> -->
                                                     <td>{{operacao.papel.papel}}</td>
                                                     <td>{{operacao.tipoOperacao}}</td>
+                                                    <td>{{operacao.precoUnitario | currency:'BRL':true}}</td>
                                                     <td>{{operacao.quantidade}}</td>
-                                                    <td>{{operacao.despesa}}</td>
-                                                    <td>{{operacao.getTotalOperacao}}</td>
+                                                    <td>{{operacao.despesa | currency:'BRL':true}}</td>
+                                                    <td>{{operacao.totalOperacao | currency:'BRL':true}}</td>
                                                     <!-- <td>{{operacao.observacao}}</td> -->
                                                 </tr>
                                             </tbody>
@@ -143,35 +148,142 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>                        
+                    </tab>
+                    <tab heading="Operações Fechadas">
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-xl-12 col-lg-12">
                                 <div class="card card-block">
-                                    <h4 class="card-title">Modal</h4>
-                                    <!-- Large modal -->
-                                    <button class="btn btn-primary" (click)="lgModal.show()">Large modal</button>
-                                    <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                    <h5 class="modal-title">Large modal</h5>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque beatae accusantium maiores, placeat, quasi laborum in vitae accusamus veritatis inventore nulla et quibusdam debitis ipsam consectetur eum, velit ea praesentium! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum nostrum a velit esse est, voluptatum quam eos ipsum laudantium facere iusto. Provident deleniti non temporibus ex tenetur, assumenda labore eos!
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Data</th>
+                                                    <th>Papel</th>
+                                                    <th>Tipo de Operação</th>
+                                                    <th>Preço Unitário</th>
+                                                    <th>Quantidade</th>
+                                                    <th>Despesa</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let operacao of operacoes">
+                                                    <td>{{operacao.data | date: 'dd/MM/yyyy'}}</td>
+                                                    <td>{{operacao.papel.papel}}</td>
+                                                    <td>{{operacao.tipoOperacao}}</td>
+                                                    <td>{{operacao.precoUnitario | currency:'BRL':true}}</td>
+                                                    <td>{{operacao.quantidade}}</td>
+                                                    <td>{{operacao.despesa | currency:'BRL':true}}</td>
+                                                    <td>{{operacao.totalOperacao | currency:'BRL':true}}</td>
+                                                    <!-- <td>{{operacao.observacao}}</td> -->
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                     </tab>
                 </tabset>
             </div>
         </div>
     </form>
     <!-- /.row -->
+</div>
+
+<!-- Modal para apresentar informções da operação -->
+<div bsModal #modalOperacao="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" *ngIf="operacaoModal">
+        <form role="form" #OperacaoFormModal="ngForm" (submit)="gravarOperacaoSaida($event)">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="modalOperacao.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>                
+                    <h5 class="modal-title">Operação Saída do Papel: {{operacaoModal.papel.papel}}</h5>
+            </div>
+            <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label>Data:</label>
+                                        <input type="date" class="form-control" id="data" name="data" [(ngModel)]="operacaoModal.data" #data="ngModel" required>
+                                    </fieldset>
+                                    <div [hidden]="data.valid || data.pristine" class="alert alert-danger">
+                                        A data é obrigatório.
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>Operação</label>                                    
+                                    <input type="text" class="form-control" id="tipoOperacao" name="tipoOperacao" [(ngModel)]="operacaoModal.tipoOperacao" #tipoOperacao="ngModel" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label>Preço Unitário:</label>
+                                        <input type="text" class="form-control" placeholder="Preço Unitário" id="precoUnitario" name="precoUnitario" [(ngModel)]="operacaoModal.precoUnitario" required #precoUnitario="ngModel">
+                                    </fieldset>
+                                    <div [hidden]="precoUnitario.valid || precoUnitario.pristine" class="alert alert-danger">
+                                        O preço unitário é obrigatório.
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label>Quantidade:</label>
+                                        <input class="form-control" placeholder="Quantidade" id="quantidade" name="quantidade" [(ngModel)]="operacaoModal.quantidade" #quantidade="ngModel" required>
+                                    </fieldset>
+                                    <div [hidden]="quantidade.valid || quantidade.pristine" class="alert alert-danger">
+                                        A quantidade é obrigatório.
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label>Despesa:</label>
+                                        <input class="form-control" placeholder="Despesa" id="despesa" name="despesa" [(ngModel)]="operacaoModal.despesa" #despesa="ngModel" required>
+                                    </fieldset>
+                                    <div [hidden]="despesa.valid || despesa.pristine" class="alert alert-danger">
+                                        A despesa é obrigatório.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label>Observação</label>
+                                        <textarea class="form-control" rows="3" id="observacao" name="observacao" [(ngModel)]="operacaoModal.observacao" #observacao="ngModel" required></textarea>
+                                    </fieldset>
+                                    <div [hidden]="observacao.valid || observacao.pristine" class="alert alert-danger">
+                                        Observação é obrigatório.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="modal-footer">
+                            <div class="row">                            
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Gravar</button>
+                                        <button type="button" class="btn btn-warning" (click)="modalOperacao.hide()">Fechar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+            </form>
+        </div>
+         
+    </div>
 </div>

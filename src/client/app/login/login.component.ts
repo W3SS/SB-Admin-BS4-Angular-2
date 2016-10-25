@@ -38,7 +38,7 @@ export class LoginComponent {
                             });
                            
         // DESENVOLVER SEM O SERVIDOR
-        // this.router.navigate(['/dashboard/home']);                        
+        this.router.navigate(['/dashboard/home']);                        
     }
 
     get diagnostic() { 

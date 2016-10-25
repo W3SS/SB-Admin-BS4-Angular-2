@@ -10,9 +10,4 @@ export class Operacao {
 	papel: Papel;
 
 	totalOperacao: number;
-/*
-	getTotalOperacao(): number{
-		console.log(this.precoUnitario * this.quantidade);
-		return this.precoUnitario * this.quantidade;
-	}*/
 }
